@@ -5,9 +5,17 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>ملك القهوة المختصة</title>
   <style>
-    body { margin: 0; font-family: "Cairo", sans-serif; background-color: #f5f3ef; color: #1f1f1f; }
+    body {
+      margin: 0;
+      font-family: "Cairo", sans-serif;
+      background-color: #f5f3ef;
+      color: #1f1f1f;
+      overflow-x: hidden;
+    }
+
+    /* ======= القسم الرئيسي بالفيديو ======= */
     .hero {
-      background: url('coffee-bg.jpg') center/cover no-repeat;
+      position: relative;
       height: 90vh;
       display: flex;
       justify-content: center;
@@ -15,18 +23,37 @@
       flex-direction: column;
       text-align: center;
       color: white;
-      background-blend-mode: multiply;
-      background-color: rgba(59,47,47,0.7);
+      overflow: hidden;
     }
-    .hero h1 {
+
+    .hero video {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      filter: brightness(60%);
+      z-index: 0;
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 1;
+      padding: 20px;
+    }
+
+    .hero-content h1 {
       font-size: 52px;
       margin-bottom: 10px;
     }
-    .hero p {
+
+    .hero-content p {
       font-size: 18px;
       color: #f5f3ef;
       margin-bottom: 20px;
     }
+
     .btn {
       background-color: #7b4b2a;
       color: white;
@@ -37,24 +64,30 @@
       font-size: 18px;
       transition: background-color 0.3s;
     }
+
     .btn:hover {
       background-color: #a47148;
     }
+
+    /* ======= قسم المنتجات ======= */
     .section {
       padding: 80px 60px;
       text-align: center;
     }
+
     .section h2 {
       color: #3b2f2f;
       margin-bottom: 30px;
       font-size: 32px;
     }
+
     .products {
       display: flex;
       justify-content: center;
       gap: 25px;
       flex-wrap: wrap;
     }
+
     .card {
       background: white;
       border-radius: 12px;
@@ -63,24 +96,61 @@
       width: 280px;
       transition: transform 0.3s;
     }
-    .card:hover { transform: translateY(-10px); }
+
+    .card:hover {
+      transform: translateY(-10px);
+    }
+
     .card img {
       width: 100%;
       border-radius: 12px;
     }
-    .card h3 { color: #3b2f2f; }
+
+    .card h3 {
+      color: #3b2f2f;
+    }
+
+    /* ======= تجاوب الهواتف ======= */
+    @media (max-width: 600px) {
+      .hero-content h1 {
+        font-size: 30px;
+      }
+      .hero-content p {
+        font-size: 14px;
+      }
+      .btn {
+        font-size: 16px;
+        padding: 10px 20px;
+      }
+      .card {
+        width: 90%;
+      }
+      .section {
+        padding: 40px 20px;
+      }
+    }
   </style>
 </head>
 <body>
 
+  <!-- استدعاء الشريط العلوي -->
   <div id="header"></div>
 
+  <!-- ======= قسم الفيديو ======= -->
   <section class="hero">
-    <h1>اكتشف عالم القهوة المختصة</h1>
-    <p>نقدم لك أجود أنواع البن المحمص بعناية من قلب المملكة</p>
-    <button class="btn">تسوق الآن</button>
+    <video autoplay muted loop playsinline>
+      <source src="rageh video.mp4" type="video/mp4">
+      متصفحك لا يدعم تشغيل الفيديو.
+    </video>
+
+    <div class="hero-content">
+      <h1>اكتشف عالم القهوة المختصة</h1>
+      <p>نقدم لك أجود أنواع البن المحمص بعناية من قلب المملكة</p>
+      <button class="btn">تسوق الآن</button>
+    </div>
   </section>
 
+  <!-- ======= قسم المنتجات ======= -->
   <section class="section">
     <h2>منتجاتنا</h2>
     <div class="products">
@@ -102,16 +172,18 @@
     </div>
   </section>
 
+  <!-- استدعاء الشريط السفلي -->
   <div id="footer"></div>
 
   <script>
     // استدعاء القوالب الخارجية
-    fetch('header.html').then(res => res.text()).then(data => {
-      document.getElementById('header').innerHTML = data;
-    });
-    fetch('footer.html').then(res => res.text()).then(data => {
-      document.getElementById('footer').innerHTML = data;
-    });
+    fetch('header.html')
+      .then(res => res.text())
+      .then(data => { document.getElementById('header').innerHTML = data; });
+
+    fetch('footer.html')
+      .then(res => res.text())
+      .then(data => { document.getElementById('footer').innerHTML = data; });
   </script>
 </body>
 </html>
